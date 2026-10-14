@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Would you rather?</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ======================================================
+       HEADER
+       ====================================================== -->
+
+  <header class="top">
+
+    <div class="logo" aria-label="Would you rather?">
+      Would you <span>rather?</span>
+    </div>
+
+    <div
+      class="topics-pill"
+      id="topicsPill"
+    >
+      🎲 Все темы
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="pill"
+        id="historyBtn"
+        type="button"
+      >
+        🕘 История
+      </button>
+
+      <button
+        class="pill pill--dark"
+        id="finishBtn"
+        type="button"
+      >
+        🏁 Финиш
+      </button>
+
+      <button
+        class="pill pill--yellow"
+        id="menuBtn"
+        type="button"
+      >
+        ☰ Меню
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- ======================================================
+       GAME
+       ====================================================== -->
+
+  <main
+    class="stage"
+    id="stage"
+  >
+
+    <div
+      class="badge"
+      id="badge"
+      aria-live="polite"
+    ></div>
+
+
+    <!-- RED -->
+
+    <button
+      class="half half--red"
+      id="red"
+      type="button"
+      aria-label="Выбрать красный вариант"
+    >
+
+      <span class="choice-glow"></span>
+
+      <span
+        class="half__inner"
+        id="redInner"
+      >
+
+        <span class="tag">
+          Красный
+        </span>
+
+        <span
+          class="text"
+          id="redText"
+        ></span>
+
+
+
+      </span>
+
+      <span class="key">
+        ←
+      </span>
+
+    </button>
+
+
+    <!-- VS -->
+
+    <div
+      class="vs"
+      aria-hidden="true"
+    >
+
+      <span class="vs__text">
+        VS
+      </span>
+
+    </div>
+
+
+    <!-- BLUE -->
+
+    <button
+      class="half half--blue"
+      id="blue"
+      type="button"
+      aria-label="Выбрать синий вариант"
+    >
+
+      <span class="choice-glow"></span>
+
+      <span
+        class="half__inner"
+        id="blueInner"
+      >
+
+        <span class="tag">
+          Синий
+        </span>
+
+        <span
+          class="text"
+          id="blueText"
+        ></span>
+
+
+
+      </span>
+
+      <span class="key">
+        →
+      </span>
+
+    </button>
+
+  </main>
+
+
+  <!-- ======================================================
+       BOTTOM BAR
+       ====================================================== -->
+
+  <footer class="bottom">
+
+    <div class="progress">
+      <div
+        class="progress__fill"
+        id="progressFill"
+      ></div>
+    </div>
+
+    <div class="bottom__stats">
+
+      <span class="stat">
+        Вопрос
+        <b id="numStat">1</b>
+      </span>
+
+      <span class="stat">
+        Осталось
+        <b id="leftStat">0</b>
+      </span>
+
+      <span class="stat stat--red">
+        Красных
+        <b id="redStat">0</b>
+      </span>
+
+      <span class="stat stat--blue">
+        Синих
+        <b id="blueStat">0</b>
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ======================================================
+       HISTORY
+       ====================================================== -->
+
+  <div
+    class="scrim"
+    id="scrim"
+  ></div>
+
+  <aside
+    class="drawer"
+    id="drawer"
+    aria-hidden="true"
+  >
+
+    <div class="drawer__head">
+
+      <div>
+
+        <span class="drawer__eyebrow">
+          ТВОЯ ИГРА
+        </span>
+
+        <h2>
+          Последние ответы
+        </h2>
+
+      </div>
+
+      <button
+        class="close"
+        id="closeDrawer"
+        type="button"
+        aria-label="Закрыть"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <ol
+      class="history"
+      id="history"
+    ></ol>
+
+  </aside>
+
+
+  <!-- ======================================================
+       RESULTS
+       ====================================================== -->
+
+  <div
+    class="overlay"
+    id="results"
+    aria-hidden="true"
+  >
+
+    <div class="card result-card">
+
+      <div class="result-sticker">
+        ✦ RESULT ✦
+      </div>
+
+      <h2
+        class="card__title"
+        id="resTitle"
+      >
+        Итоги игры
+      </h2>
+
+      <p
+        class="card__sub"
+        id="resSub"
+      ></p>
+
+
+      <!-- RED / BLUE -->
+
+      <section class="result-section">
+
+        <div class="section-heading">
+          Твои выборы
+        </div>
+
+        <div
+          class="big-bar"
+          id="bigBar"
+        ></div>
+
+        <div class="big-legend">
+
+          <span class="red-txt">
+            Красный
+            <b id="resRed">0</b>
+          </span>
+
+          <span class="blue-txt">
+            Синий
+            <b id="resBlue">0</b>
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- PROFILE -->
+
+      <section class="profile-section">
+
+        <div class="profile-heading">
+
+          <div>
+
+            <span class="profile-kicker">
+              ПО СМЫСЛУ ОТВЕТОВ
+            </span>
+
+            <h3>
+              Твой игровой профиль
+            </h3>
+
+          </div>
+
+          <span class="profile-spark">
+            ✨
+          </span>
+
+        </div>
+
+
+        <div
+          class="profile-lead"
+          id="profileLead"
+        ></div>
+
+
+        <div
+          class="profile-grid"
+          id="profileGrid"
+        ></div>
+
+
+        <p class="profile-note">
+          Это игровая интерпретация ответов, а не психологическая диагностика.
+        </p>
+
+      </section>
+
+
+      <!-- CATEGORIES -->
+
+      <section class="result-section">
+
+        <div class="section-heading">
+          Красный vs синий по темам
+        </div>
+
+        <div
+          class="cats"
+          id="resCats"
+        ></div>
+
+      </section>
+
+
+      <div class="card__buttons">
+
+        <button
+          class="pill pill--dark"
+          id="continueBtn"
+          type="button"
+        >
+          ▶ Продолжить
+        </button>
+
+        <button
+          class="pill pill--yellow"
+          id="restartBtn"
+          type="button"
+        >
+          ↻ Заново
+        </button>
+
+        <button
+          class="pill"
+          id="toMenuBtn"
+          type="button"
+        >
+          🏠 В меню
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       START MENU
+       ====================================================== -->
+
+  <div
+    class="menu"
+    id="menu"
+  >
+
+    <div class="curtain curtain--l"></div>
+    <div class="curtain curtain--r"></div>
+
+
+    <div class="menu__content">
+
+      <div class="menu__sticker">
+        PICK YOUR CHAOS
+      </div>
+
+      <h1 class="menu__title">
+
+        Would you
+
+        <span>
+          rather?
+        </span>
+
+      </h1>
+
+      <p class="menu__sub">
+        Выбери темы — и начинаем спорить с самим собой
+      </p>
+
+
+      <div
+        class="topics"
+        id="topics"
+      ></div>
+
+
+      <div class="menu__row">
+
+        <button
+          class="pill"
+          id="allBtn"
+          type="button"
+        >
+          ✓ Выбрать все
+        </button>
+
+        <button
+          class="pill"
+          id="noneBtn"
+          type="button"
+        >
+          ✕ Сбросить
+        </button>
+
+      </div>
+
+
+      <button
+        class="start"
+        id="startBtn"
+        type="button"
+      >
+
+        <span>
+          Играть!
+        </span>
+
+        <span class="start__arrow">
+          →
+        </span>
+
+      </button>
+
+
+      <p
+        class="menu__hint"
+        id="menuHint"
+      ></p>
+
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
