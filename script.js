@@ -344,7 +344,6 @@
   const TRAIT_MAP = {
 
     funny: [
-
       ['absurd', 'absurd'],
       ['spotlight', 'spotlight'],
       ['absurd', 'cozy'],
@@ -365,12 +364,9 @@
       ['spotlight', 'spotlight'],
       ['bold', 'bold'],
       ['absurd', 'absurd']
-
     ],
 
-
     relationships: [
-
       ['closeness', 'closeness'],
       ['closeness', 'independence'],
       ['honesty', 'harmony'],
@@ -391,12 +387,9 @@
       ['closeness', 'independence'],
       ['closeness', 'independence'],
       ['closeness', 'harmony']
-
     ],
 
-
     impossible: [
-
       ['freedom', 'power'],
       ['knowledge', 'knowledge'],
       ['power', 'power'],
@@ -417,12 +410,9 @@
       ['knowledge', 'stability'],
       ['knowledge', 'freedom'],
       ['freedom', 'freedom']
-
     ],
 
-
     sad: [
-
       ['memory', 'memory'],
       ['connection', 'connection'],
       ['connection', 'connection'],
@@ -443,12 +433,9 @@
       ['connection', 'truth'],
       ['memory', 'memory'],
       ['connection', 'resilience']
-
     ],
 
-
     life: [
-
       ['freedom', 'stability'],
       ['ambition', 'stability'],
       ['discipline', 'freedom'],
@@ -469,7 +456,6 @@
       ['freedom', 'stability'],
       ['freedom', 'balance'],
       ['freedom', 'ambition']
-
     ]
 
   };
@@ -707,8 +693,7 @@
 
         ALL.push({
 
-          id:
-            uid++,
+          id: uid++,
 
           cat,
 
@@ -737,119 +722,81 @@
 
   const el = {
 
-    topicsPill:
-      $('topicsPill'),
+    topicsPill: $('topicsPill'),
 
-    badge:
-      $('badge'),
+    badge: $('badge'),
 
-    red:
-      $('red'),
+    red: $('red'),
 
-    blue:
-      $('blue'),
+    blue: $('blue'),
 
-    redInner:
-      $('redInner'),
+    redInner: $('redInner'),
 
-    blueInner:
-      $('blueInner'),
+    blueInner: $('blueInner'),
 
-    redText:
-      $('redText'),
+    redText: $('redText'),
 
-    blueText:
-      $('blueText'),
+    blueText: $('blueText'),
 
-    numStat:
-      $('numStat'),
+    numStat: $('numStat'),
 
-    leftStat:
-      $('leftStat'),
+    leftStat: $('leftStat'),
 
-    redStat:
-      $('redStat'),
+    redStat: $('redStat'),
 
-    blueStat:
-      $('blueStat'),
+    blueStat: $('blueStat'),
 
-    progressFill:
-      $('progressFill'),
+    progressFill: $('progressFill'),
 
-    historyBtn:
-      $('historyBtn'),
+    historyBtn: $('historyBtn'),
 
-    finishBtn:
-      $('finishBtn'),
+    finishBtn: $('finishBtn'),
 
-    menuBtn:
-      $('menuBtn'),
+    menuBtn: $('menuBtn'),
 
-    drawer:
-      $('drawer'),
+    drawer: $('drawer'),
 
-    scrim:
-      $('scrim'),
+    scrim: $('scrim'),
 
-    closeDrawer:
-      $('closeDrawer'),
+    closeDrawer: $('closeDrawer'),
 
-    history:
-      $('history'),
+    history: $('history'),
 
-    results:
-      $('results'),
+    results: $('results'),
 
-    resTitle:
-      $('resTitle'),
+    resTitle: $('resTitle'),
 
-    resSub:
-      $('resSub'),
+    resSub: $('resSub'),
 
-    bigBar:
-      $('bigBar'),
+    bigBar: $('bigBar'),
 
-    resRed:
-      $('resRed'),
+    resRed: $('resRed'),
 
-    resBlue:
-      $('resBlue'),
+    resBlue: $('resBlue'),
 
-    resCats:
-      $('resCats'),
+    resCats: $('resCats'),
 
-    profileLead:
-      $('profileLead'),
+    profileLead: $('profileLead'),
 
-    profileGrid:
-      $('profileGrid'),
+    profileGrid: $('profileGrid'),
 
-    continueBtn:
-      $('continueBtn'),
+    continueBtn: $('continueBtn'),
 
-    restartBtn:
-      $('restartBtn'),
+    restartBtn: $('restartBtn'),
 
-    toMenuBtn:
-      $('toMenuBtn'),
+    toMenuBtn: $('toMenuBtn'),
 
-    menu:
-      $('menu'),
+    menu: $('menu'),
 
-    topics:
-      $('topics'),
+    topics: $('topics'),
 
-    allBtn:
-      $('allBtn'),
+    allBtn: $('allBtn'),
 
-    noneBtn:
-      $('noneBtn'),
+    noneBtn: $('noneBtn'),
 
-    startBtn:
-      $('startBtn'),
+    startBtn: $('startBtn'),
 
-    menuHint:
-      $('menuHint')
+    menuHint: $('menuHint')
 
   };
 
@@ -860,34 +807,27 @@
 
   const state = {
 
-    selected:
-      new Set(
-        Object.keys(CATS)
-      ),
+
+ selected:
+    new Set(),
 
     used:
       new Set(),
 
-    queue:
-      [],
+    queue: [],
 
-    current:
-      null,
+    current: null,
 
-    answers:
-      [],
+    answers: [],
 
-    busy:
-      false,
+    busy: false,
 
-    playing:
-      false
+    playing: false
 
   };
 
 
-  const HISTORY_LIMIT =
-    10;
+  const HISTORY_LIMIT = 10;
 
 
   const SPARK_COLORS = [
@@ -901,14 +841,11 @@
   ];
 
 
-  let questionTimer =
-    null;
+  let questionTimer = null;
 
-  let hideTimer =
-    null;
+  let hideTimer = null;
 
-  let choiceTimer =
-    null;
+  let choiceTimer = null;
 
 
   /* =========================================================
@@ -996,17 +933,12 @@
 
   /* =========================================================
      TOPICS
-
-     NEW:
-     topic-wrap contains:
-     - button.topic
-     - span.topic__check
+     NO CHECKMARKS
      ========================================================= */
 
   function renderTopics() {
 
-    el.topics.innerHTML =
-      '';
+    el.topics.innerHTML = '';
 
 
     Object.entries(CATS)
@@ -1021,8 +953,6 @@
               key
             );
 
-
-          /* wrapper */
 
           const wrap =
             document.createElement(
@@ -1047,8 +977,6 @@
             i
           );
 
-
-          /* button */
 
           const button =
             document.createElement(
@@ -1080,13 +1008,9 @@
 
           button.setAttribute(
             'aria-pressed',
-            String(
-              selected
-            )
+            String(selected)
           );
 
-
-          /* emoji */
 
           const emoji =
             document.createElement(
@@ -1102,8 +1026,6 @@
             c.emoji;
 
 
-          /* name */
-
           const name =
             document.createElement(
               'span'
@@ -1117,8 +1039,6 @@
           name.textContent =
             c.label;
 
-
-          /* count */
 
           const count =
             document.createElement(
@@ -1134,22 +1054,6 @@
             `${DATA[key].length} вопросов`;
 
 
-          /* checkmark OUTSIDE button */
-
-          const check =
-            document.createElement(
-              'span'
-            );
-
-
-          check.className =
-            'topic__check';
-
-
-          check.textContent =
-            '✓';
-
-
           button.append(
             emoji,
             name,
@@ -1158,8 +1062,7 @@
 
 
           wrap.append(
-            button,
-            check
+            button
           );
 
 
@@ -1211,7 +1114,9 @@
 
 
     const on =
-      state.selected.has(key);
+      state.selected.has(
+        key
+      );
 
 
     button.classList.toggle(
@@ -1340,7 +1245,9 @@
       Object.keys(CATS)
         .filter(
           key =>
-            state.selected.has(key)
+            state.selected.has(
+              key
+            )
         );
 
 
@@ -1367,7 +1274,7 @@
 
 
   /* =========================================================
-     START
+     START GAME
      ========================================================= */
 
   function startGame() {
@@ -1401,17 +1308,13 @@
 
     state.used.clear();
 
-    state.answers =
-      [];
+    state.answers = [];
 
-    state.current =
-      null;
+    state.current = null;
 
-    state.busy =
-      false;
+    state.busy = false;
 
-    state.playing =
-      true;
+    state.playing = true;
 
 
     document.body.classList.add(
@@ -1481,11 +1384,9 @@
     );
 
 
-    state.playing =
-      false;
+    state.playing = false;
 
-    state.busy =
-      false;
+    state.busy = false;
 
 
     document.body.classList.remove(
@@ -1544,9 +1445,7 @@
       !state.queue.length
     ) {
 
-      state.current =
-        null;
-
+      state.current = null;
 
       showResults(true);
 
@@ -1856,7 +1755,7 @@
 
 
   /* =========================================================
-     GET SEMANTIC TRAIT
+     GET TRAIT
      ========================================================= */
 
   function getTrait(
@@ -1900,8 +1799,7 @@
     }
 
 
-    state.busy =
-      true;
+    state.busy = true;
 
 
     const q =
@@ -1930,19 +1828,15 @@
 
     state.answers.push({
 
-      id:
-        q.id,
+      id: q.id,
 
-      cat:
-        q.cat,
+      cat: q.cat,
 
-      index:
-        q.index,
+      index: q.index,
 
       side,
 
-      origin:
-        chosenOrigin,
+      origin: chosenOrigin,
 
       trait,
 
@@ -1994,8 +1888,7 @@
     );
 
 
-    state.current =
-      null;
+    state.current = null;
 
 
     updateMeta();
@@ -2032,8 +1925,7 @@
           );
 
 
-          state.busy =
-            false;
+          state.busy = false;
 
 
           showQuestion();
@@ -2055,8 +1947,7 @@
     animate
   ) {
 
-    el.history.innerHTML =
-      '';
+    el.history.innerHTML = '';
 
 
     const last =
@@ -2229,7 +2120,7 @@
 
 
   /* =========================================================
-     PROFILE CALCULATION
+     PROFILE
      ========================================================= */
 
   function getCategoryProfile(cat) {
@@ -2250,8 +2141,7 @@
     }
 
 
-    const counts =
-      {};
+    const counts = {};
 
 
     answers.forEach(
@@ -2360,13 +2250,9 @@
 
   function renderProfile() {
 
-    el.profileGrid.innerHTML =
-      '';
+    el.profileGrid.innerHTML = '';
 
-
-    el.profileLead.innerHTML =
-      '';
-
+    el.profileLead.innerHTML = '';
 
     el.profileLead.classList.remove(
       'show'
@@ -2377,11 +2263,15 @@
       Object.keys(CATS)
         .filter(
           cat =>
-            state.selected.has(cat)
+            state.selected.has(
+              cat
+            )
         )
         .map(
           cat =>
-            getCategoryProfile(cat)
+            getCategoryProfile(
+              cat
+            )
         )
         .filter(Boolean);
 
@@ -2613,8 +2503,7 @@
       'Итоги игры';
 
 
-    let sub =
-      '';
+    let sub = '';
 
 
     if (
@@ -2702,8 +2591,7 @@
       el.bigBar.children;
 
 
-    el.resCats.innerHTML =
-      '';
+    el.resCats.innerHTML = '';
 
 
     const rows =
@@ -2773,8 +2661,7 @@
       );
 
 
-    const barAnimations =
-      [];
+    const barAnimations = [];
 
 
     rows.forEach(
@@ -3037,17 +2924,11 @@
 
     state.used.clear();
 
+    state.answers = [];
 
-    state.answers =
-      [];
+    state.current = null;
 
-
-    state.current =
-      null;
-
-
-    state.busy =
-      false;
+    state.busy = false;
 
 
     buildQueue();
