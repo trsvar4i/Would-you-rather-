@@ -450,8 +450,6 @@ body.playing
 }
 
 
-/* big comic dots */
-
 .half::before {
   content: '';
 
@@ -482,8 +480,6 @@ body.playing
     infinite;
 }
 
-
-/* diagonal highlight */
 
 .half::after {
   content: '';
@@ -732,56 +728,11 @@ body.playing
 
 
 /* =========================================================
-   CHOOSE HINT
+   UNUSED OLD HINT
    ========================================================= */
 
 .choose-hint {
-  margin-top:
-    4px;
-
-  padding:
-    6px 11px;
-
-  font-size:
-    .54rem;
-
-  color:
-    var(--ink);
-
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      .88
-    );
-
-  border:
-    2px solid
-    var(--ink);
-
-  border-radius:
-    999px;
-
-  opacity:
-    0;
-
-  transform:
-    translateY(8px);
-
-  transition:
-    opacity .25s,
-    transform .25s
-    var(--bounce);
-}
-
-
-.half:hover
-.choose-hint {
-  opacity: 1;
-
-  transform:
-    none;
+  display: none !important;
 }
 
 
@@ -985,8 +936,7 @@ body.playing
   border-radius:
     50%;
 
-  opacity:
-    0;
+  opacity: 0;
 
   animation:
     vsRing
@@ -1010,8 +960,6 @@ body.playing
     );
 }
 
-
-/* hidden duplicate category */
 
 .badge {
   display:
@@ -1072,8 +1020,6 @@ body.playing
     var(--ink);
 }
 
-
-/* progress */
 
 .progress {
   width: 100%;
@@ -2718,7 +2664,7 @@ body.playing
 
 
 /* =========================================================
-   TOPICS
+   TOPICS GRID
    ========================================================= */
 
 .topics {
@@ -2751,16 +2697,49 @@ body.playing
 
 
 /* =========================================================
-   TOPIC
+   NEW TOPIC WRAPPER
+
+   ВАЖНО:
+   именно wrapper разрешает галочке выходить наружу,
+   при этом сама карточка остаётся overflow:hidden.
+   ========================================================= */
+
+.topic-wrap {
+  position: relative;
+
+  min-width: 0;
+
+  overflow: visible;
+
+  animation:
+    topicCardIn
+    .48s
+    var(--bounce)
+    both;
+
+  animation-delay:
+    calc(
+      var(--i)
+      *
+      55ms
+      +
+      .05s
+    );
+}
+
+
+/* =========================================================
+   TOPIC CARD
    ========================================================= */
 
 .topic {
   position: relative;
 
-  min-width: 0;
+  width: 100%;
+  height: 100%;
 
-  min-height:
-    142px;
+  min-width: 0;
+  min-height: 142px;
 
   display: flex;
 
@@ -2778,6 +2757,7 @@ body.playing
     8px
     13px;
 
+  /* декор остаётся внутри */
   overflow: hidden;
 
   background:
@@ -2799,23 +2779,10 @@ body.playing
     var(--bounce),
     box-shadow .23s,
     background .23s;
-
-  animation:
-    topicCardIn
-    .48s
-    var(--bounce)
-    both;
-
-  animation-delay:
-    calc(
-      var(--i)
-      *
-      55ms
-      +
-      .05s
-    );
 }
 
+
+/* цветной внутренний декор */
 
 .topic::before {
   content: '';
@@ -2970,7 +2937,7 @@ body.playing
 }
 
 
-.topic:nth-child(2)
+.topic-wrap:nth-child(2)
 .topic__name {
   font-size:
     clamp(
@@ -2995,26 +2962,25 @@ body.playing
 
 
 /* =========================================================
-   TOPIC CHECK
+   CHECKMARK
    ========================================================= */
 
 .topic__check {
   position: absolute;
 
-  z-index:
-    4;
+  z-index: 30;
 
   top:
-    -8px;
+    -12px;
 
   right:
-    -7px;
+    -12px;
 
   width:
-    29px;
+    31px;
 
   height:
-    29px;
+    31px;
 
   display: grid;
 
@@ -3027,46 +2993,66 @@ body.playing
     var(--ink);
 
   border:
-    2px solid
+    3px solid
     var(--white);
 
   border-radius:
     50%;
 
   box-shadow:
-    2px 2px 0
-    rgba(
-      17,
-      17,
-      17,
-      .18
-    );
+    3px 3px 0
+    var(--ink);
 
   font-family:
     Arial,
     sans-serif;
 
   font-size:
-    15px;
+    16px;
 
   font-weight:
     900;
 
+  line-height: 1;
+
+  pointer-events:
+    none;
+
+  opacity: 0;
+
   transform:
     scale(0)
-    rotate(-120deg);
+    rotate(-130deg);
 
   transition:
+    opacity .15s ease,
     transform .3s
     var(--bounce);
 }
 
 
-.topic.on
+.topic-wrap.on
 .topic__check {
+  opacity: 1;
+
   transform:
     scale(1)
     rotate(0);
+
+  animation:
+    checkPop
+    .42s
+    var(--bounce);
+}
+
+
+/* лёгкое движение вместе с карточкой */
+
+.topic-wrap:hover
+.topic__check {
+  transform:
+    translateY(-2px)
+    scale(1.05);
 }
 
 
@@ -3280,6 +3266,41 @@ body.playing
 /* =========================================================
    ANIMATIONS
    ========================================================= */
+
+@keyframes checkPop {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(0)
+      rotate(-130deg);
+  }
+
+  60% {
+    opacity: 1;
+
+    transform:
+      scale(1.28)
+      rotate(10deg);
+  }
+
+  78% {
+    transform:
+      scale(.92)
+      rotate(-4deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      rotate(0);
+  }
+
+}
+
 
 @keyframes answerEnter {
 
@@ -3710,10 +3731,25 @@ body.playing
   }
 
 
-  .topic:nth-child(2)
+  .topic-wrap:nth-child(2)
   .topic__name {
     font-size:
       .51rem;
+  }
+
+
+  .topic__check {
+    width:
+      28px;
+
+    height:
+      28px;
+
+    top:
+      -10px;
+
+    right:
+      -10px;
   }
 
 }
@@ -3833,8 +3869,7 @@ body.playing
   }
 
 
-  .key,
-  .choose-hint {
+  .key {
     display: none;
   }
 
@@ -3889,7 +3924,7 @@ body.playing
   }
 
 
-  .topic:last-child {
+  .topic-wrap:last-child {
     grid-column:
       1 / -1;
 

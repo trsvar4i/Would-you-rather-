@@ -338,13 +338,7 @@
 
 
   /* =========================================================
-     SEMANTIC CLASSIFICATION
-
-     Each pair describes the meaning of:
-     [option A, option B]
-
-     This means classification works even when
-     red / blue sides are randomly swapped.
+     TRAIT MAP
      ========================================================= */
 
   const TRAIT_MAP = {
@@ -1002,6 +996,11 @@
 
   /* =========================================================
      TOPICS
+
+     NEW:
+     topic-wrap contains:
+     - button.topic
+     - span.topic__check
      ========================================================= */
 
   function renderTopics() {
@@ -1017,6 +1016,40 @@
           i
         ) => {
 
+          const selected =
+            state.selected.has(
+              key
+            );
+
+
+          /* wrapper */
+
+          const wrap =
+            document.createElement(
+              'div'
+            );
+
+
+          wrap.className =
+            'topic-wrap'
+            +
+            (
+              selected
+                ?
+                ' on'
+                :
+                ''
+            );
+
+
+          wrap.style.setProperty(
+            '--i',
+            i
+          );
+
+
+          /* button */
+
           const button =
             document.createElement(
               'button'
@@ -1031,7 +1064,7 @@
             'topic'
             +
             (
-              state.selected.has(key)
+              selected
                 ?
                 ' on'
                 :
@@ -1045,19 +1078,15 @@
           );
 
 
-          button.style.setProperty(
-            '--i',
-            i
-          );
-
-
           button.setAttribute(
             'aria-pressed',
             String(
-              state.selected.has(key)
+              selected
             )
           );
 
+
+          /* emoji */
 
           const emoji =
             document.createElement(
@@ -1073,6 +1102,8 @@
             c.emoji;
 
 
+          /* name */
+
           const name =
             document.createElement(
               'span'
@@ -1087,6 +1118,8 @@
             c.label;
 
 
+          /* count */
+
           const count =
             document.createElement(
               'span'
@@ -1100,6 +1133,8 @@
           count.textContent =
             `${DATA[key].length} вопросов`;
 
+
+          /* checkmark OUTSIDE button */
 
           const check =
             document.createElement(
@@ -1118,7 +1153,12 @@
           button.append(
             emoji,
             name,
-            count,
+            count
+          );
+
+
+          wrap.append(
+            button,
             check
           );
 
@@ -1128,13 +1168,14 @@
             () =>
               toggleTopic(
                 key,
-                button
+                button,
+                wrap
               )
           );
 
 
           el.topics.appendChild(
-            button
+            wrap
           );
 
         }
@@ -1148,7 +1189,8 @@
 
   function toggleTopic(
     key,
-    node
+    button,
+    wrap
   ) {
 
     if (
@@ -1172,13 +1214,19 @@
       state.selected.has(key);
 
 
-    node.classList.toggle(
+    button.classList.toggle(
       'on',
       on
     );
 
 
-    node.setAttribute(
+    wrap.classList.toggle(
+      'on',
+      on
+    );
+
+
+    button.setAttribute(
       'aria-pressed',
       String(on)
     );
@@ -1203,39 +1251,54 @@
       );
 
 
-    el.topics
-      .querySelectorAll(
-        '.topic'
-      )
-      .forEach(
-        (
-          node,
-          i
-        ) => {
-
-          const key =
-            Object.keys(CATS)[i];
+    const wraps =
+      el.topics
+        .querySelectorAll(
+          '.topic-wrap'
+        );
 
 
-          const on =
-            state.selected.has(
-              key
-            );
+    wraps.forEach(
+      (
+        wrap,
+        i
+      ) => {
+
+        const key =
+          Object.keys(CATS)[i];
 
 
-          node.classList.toggle(
-            'on',
-            on
+        const on =
+          state.selected.has(
+            key
           );
 
 
-          node.setAttribute(
-            'aria-pressed',
-            String(on)
+        const button =
+          wrap.querySelector(
+            '.topic'
           );
 
-        }
-      );
+
+        wrap.classList.toggle(
+          'on',
+          on
+        );
+
+
+        button.classList.toggle(
+          'on',
+          on
+        );
+
+
+        button.setAttribute(
+          'aria-pressed',
+          String(on)
+        );
+
+      }
+    );
 
 
     updateMenuHint();
@@ -2332,8 +2395,6 @@
     }
 
 
-    /* Find category with clearest dominant pattern */
-
     const strongest =
       profiles
         .slice()
@@ -2640,8 +2701,6 @@
     ] =
       el.bigBar.children;
 
-
-    /* category red/blue stats */
 
     el.resCats.innerHTML =
       '';
